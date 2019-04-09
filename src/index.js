@@ -13,33 +13,15 @@ class Box extends React.Component {
 }
 
 class Panel extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      boxes: Array(9).fill(null),
-      xIsNext: true
-    };
-  }
-
-  handleClick(i) {
-    const boxes = this.state.boxes.slice();
-    boxes[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({ boxes, xIsNext: !this.state.xIsNext });
-  }
-
   renderBox(i) {
     return (
-      <Box value={this.state.boxes[i]} onClick={() => this.handleClick(i)} />
+      <Box value={this.props.boxes[i]} onClick={() => this.props.onClick(i)} />
     );
   }
 
   render() {
-    const nextPlayer = this.state.xIsNext ? 'X' : 'O';
-    const status = `Next Player: ${nextPlayer}`;
-
     return (
       <div>
-        <div className="status">{status}</div>
         <div className="panel-row">
           {this.renderBox(0)}
           {this.renderBox(1)}
@@ -61,14 +43,59 @@ class Panel extends React.Component {
 }
 
 class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: [
+        {
+          boxes: Array(9).fill(null)
+        }
+      ],
+      xIsNext: true
+    };
+  }
+
+  handleClick(i) {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const boxes = current.boxes.slice();
+
+    if (calculateWinner(boxes) || boxes[i]) {
+      return;
+    }
+
+    boxes[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      history: history.concat([
+        {
+          boxes
+        }
+      ]),
+      xIsNext: !this.state.xIsNext
+    });
+  }
+
   render() {
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    const winner = calculateWinner(current.boxes);
+
+    //const winner = calculateWinner(this.state.boxes);
+    let status;
+    if (winner) {
+      status = `Winner: ${winner}`;
+    } else {
+      const nextPlayer = this.state.xIsNext ? 'X' : 'O';
+      status = `Next Player: ${nextPlayer}`;
+    }
+
     return (
       <div className="game">
         <div className="game-panel">
-          <Panel />
+          <Panel boxes={current.boxes} onClick={i => this.handleClick(i)} />
         </div>
         <div className="game-info">
-          <div>{/* TODO status */}</div>
+          <div>{status}</div>
           <ol>{/* TODO  */}</ol>
         </div>
       </div>
@@ -79,3 +106,23 @@ class Game extends React.Component {
 //************************** */
 
 ReactDOM.render(<Game />, document.getElementById('root'));
+
+function calculateWinner(boxes) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
+      return boxes[a];
+    }
+  }
+  return null;
+}
