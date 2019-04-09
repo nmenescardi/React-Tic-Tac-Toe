@@ -3,28 +3,39 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Box extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null
-    };
-  }
   render() {
     return (
-      <button className="box" onClick={() => this.setState({ value: 'X' })}>
-        {this.state.value}
+      <button className="box" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Panel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      boxes: Array(9).fill(null),
+      xIsNext: true
+    };
+  }
+
+  handleClick(i) {
+    const boxes = this.state.boxes.slice();
+    boxes[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({ boxes, xIsNext: !this.state.xIsNext });
+  }
+
   renderBox(i) {
-    return <Box value={i} />;
+    return (
+      <Box value={this.state.boxes[i]} onClick={() => this.handleClick(i)} />
+    );
   }
 
   render() {
-    const status = 'Next Player: x';
+    const nextPlayer = this.state.xIsNext ? 'X' : 'O';
+    const status = `Next Player: ${nextPlayer}`;
 
     return (
       <div>
