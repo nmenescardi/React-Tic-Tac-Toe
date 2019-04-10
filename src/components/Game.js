@@ -1,5 +1,6 @@
 import React from 'react';
 import Panel from './Panel';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -78,21 +79,33 @@ export default class Game extends React.Component {
     });
 
     let status;
+    const nextPlayer = this.state.xIsNext ? 'X' : 'O';
     if (winner) {
       status = `Winner: ${winner}`;
     } else {
-      const nextPlayer = this.state.xIsNext ? 'X' : 'O';
       status = `Next Player: ${nextPlayer}`;
     }
 
     return (
-      <div className="game">
-        <div className="game-panel">
-          <Panel boxes={current.boxes} onClick={i => this.handleClick(i)} />
+      <div className="main-container">
+        <div className="hero-container">
+          <div className="container title-container">
+            <h2 className="next-turn-indicator text-center">
+              Next Turn:
+              <span className="player-turn font-italic">{` Player ${nextPlayer}`}</span>
+            </h2>
+          </div>
         </div>
-        <div className="game-info">
-          <div>{status}</div>
-          <ol>{moves}</ol>
+        <div className="panel-container">
+          <div className="container">
+            <div className="game-panel">
+              <Panel boxes={current.boxes} onClick={i => this.handleClick(i)} />
+            </div>
+            <div className="game-info">
+              <div>{status}</div>
+              <ol>{moves}</ol>
+            </div>
+          </div>
         </div>
       </div>
     );

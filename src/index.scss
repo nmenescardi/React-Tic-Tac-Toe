@@ -1,0 +1,85 @@
+$hero-height: 20rem;
+
+html {
+  font-size: 62.5%;
+  body {
+    font-family: 'Century Gothic', Futura, sans-serif;
+
+    .main-container {
+      .hero-container {
+        min-height: $hero-height;
+        background-image: url('/assets/tic-tac-toe-hero.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position-x: center;
+
+        .title-container {
+          min-height: $hero-height;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          h2 {
+            font-size: 4rem;
+            color: #fff;
+
+            .player-turn {
+              color: #aaa;
+            }
+          }
+        }
+      }
+
+      .panel-container {
+        background-image: url('/assets/background-half-grey.jpg');
+        background-position-x: center;
+        min-height: 80vh;
+      }
+    }
+
+    /* More.*/
+    // TODO: Refactoring
+
+    ol,
+    ul {
+      padding-left: 30px;
+    }
+
+    .panel-row:after {
+      clear: both;
+      content: '';
+      display: table;
+    }
+
+    .status {
+      margin-bottom: 10px;
+    }
+
+    .box {
+      background: #fff;
+      border: 1px solid #999;
+      float: left;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 34px;
+      height: 34px;
+      margin-right: -1px;
+      margin-top: -1px;
+      padding: 0;
+      text-align: center;
+      width: 34px;
+    }
+
+    .box:focus {
+      outline: none;
+    }
+
+    .kbd-navigation .box:focus {
+      background: #ddd;
+    }
+
+    .game-info {
+      margin-left: 20px;
+    }
+  }
+}
