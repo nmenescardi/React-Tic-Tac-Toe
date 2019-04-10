@@ -30,10 +30,26 @@ html {
         }
       }
 
-      .panel-container {
+      .game-container {
         background-image: url('/assets/background-half-grey.jpg');
         background-position-x: center;
         min-height: 80vh;
+
+        .panel-inner-container {
+          max-width: 300px;
+          margin: 15% auto;
+
+          .box-wrapper {
+            height: 100px;
+            width: 100px;
+            margin: -2px;
+            background: #fff;
+            border: 1px solid #999;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 34px;
+          }
+        }
       }
     }
 
@@ -53,21 +69,6 @@ html {
 
     .status {
       margin-bottom: 10px;
-    }
-
-    .box {
-      background: #fff;
-      border: 1px solid #999;
-      float: left;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 34px;
-      height: 34px;
-      margin-right: -1px;
-      margin-top: -1px;
-      padding: 0;
-      text-align: center;
-      width: 34px;
     }
 
     .box:focus {

@@ -1,5 +1,8 @@
 import React from 'react';
 import Panel from './Panel';
+import Player from './Player';
+import NewGame from './NewGame';
+import ResetScores from './ResetScores';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Game extends React.Component {
@@ -96,10 +99,27 @@ export default class Game extends React.Component {
             </h2>
           </div>
         </div>
-        <div className="panel-container">
+        <div className="game-container">
           <div className="container">
-            <div className="game-panel">
-              <Panel boxes={current.boxes} onClick={i => this.handleClick(i)} />
+            <div className="row">
+              <div className="player-container col-md-3">
+                <Player />
+              </div>
+              <div className="panel-container col-md-6">
+                <Panel
+                  boxes={current.boxes}
+                  onClick={i => this.handleClick(i)}
+                />
+              </div>
+              <div className="player-container col-md-3">
+                <Player />
+              </div>
+            </div>
+            <div className="new-game-container">
+              <NewGame />
+            </div>
+            <div className="reset-scores-container">
+              <ResetScores />
             </div>
             <div className="game-info">
               <div>{status}</div>
