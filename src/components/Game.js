@@ -22,6 +22,7 @@ export default class Game extends React.Component {
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
+    // Using slice() to create a copy of the array
     const boxes = current.boxes.slice();
 
     if (this.calculateWinner(boxes) || boxes[i]) {
@@ -29,6 +30,8 @@ export default class Game extends React.Component {
     }
 
     boxes[i] = this.state.xIsNext ? 'X' : 'O';
+
+    // Concat() doesn't mutate the original array (push() method does)
     this.setState({
       history: history.concat([
         {
@@ -89,6 +92,8 @@ export default class Game extends React.Component {
       status = `Next Player: ${nextPlayer}`;
     }
 
+    const xIsNext = this.state.xIsNext;
+
     return (
       <div className="main-container">
         <div className="hero-container">
@@ -103,7 +108,7 @@ export default class Game extends React.Component {
           <div className="container">
             <div className="row">
               <div className="player-container col-md-2">
-                <Player />
+                <Player playerRef="X" playerActive={xIsNext} totalScore="1" />
               </div>
               <div className="panel-container col-md-8">
                 <Panel
@@ -112,7 +117,7 @@ export default class Game extends React.Component {
                 />
               </div>
               <div className="player-container col-md-2">
-                <Player />
+                <Player playerRef="O" playerActive={!xIsNext} totalScore="3" />
               </div>
             </div>
             <div className="new-game-container">
