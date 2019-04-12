@@ -3,6 +3,8 @@ import Panel from './Panel';
 import Player from './Player';
 import NewGame from './NewGame';
 import ResetScores from './ResetScores';
+import ButtonWithIcon from './ButtonWithIcon';
+import icons from '../icons/icons';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Game extends React.Component {
@@ -87,17 +89,15 @@ export default class Game extends React.Component {
   render() {
     const moves = this.state.moves;
     const current = moves[this.state.moveNum];
+    const currentMovement = this.state.moveNum;
     const winner = this.calculateWinner(current.boxes);
 
-    // TODO: Use navigation arrows instead
-    const movesButtons = moves.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
-    });
+    // Visible UNDO only if the current movement is not the first one.
+    const visibleUndo = currentMovement !== 0;
+
+    // Visible REDO only if there is more movements in further positions.
+    const totalAmountOfMovements = this.state.moves.length - 1;
+    const visibleRedo = totalAmountOfMovements > currentMovement;
 
     let status;
     const nextPlayer = this.state.xIsNext ? 'X' : 'O';
@@ -122,6 +122,26 @@ export default class Game extends React.Component {
         <div className="game-container">
           <div className="container">
             <div className="row">
+              <div className="icon-button-container col-md-2 offset-md-4">
+                <ButtonWithIcon
+                  iconLabel="Undo"
+                  iconSVG={icons.undo}
+                  pushToRight={false}
+                  onClick={() => this.jumpTo(currentMovement - 1)}
+                  visibility={visibleUndo}
+                />
+              </div>
+              <div className="icon-button-container col-md-2">
+                <ButtonWithIcon
+                  iconLabel="Redo"
+                  iconSVG={icons.redo}
+                  pushToRight={true}
+                  onClick={() => this.jumpTo(currentMovement + 1)}
+                  visibility={visibleRedo}
+                />
+              </div>
+            </div>
+            <div className="row">
               <div className="player-container col-md-2">
                 <Player playerRef="X" playerActive={xIsNext} totalScore="1" />
               </div>
@@ -143,7 +163,6 @@ export default class Game extends React.Component {
             </div>
             <div className="game-info">
               <div>{status}</div>
-              <ol>{movesButtons}</ol>
             </div>
           </div>
         </div>

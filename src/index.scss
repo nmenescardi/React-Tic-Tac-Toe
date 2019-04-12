@@ -1,4 +1,5 @@
 $hero-height: 20rem;
+$disabled-color: #d3d3d3;
 
 html {
   font-size: 62.5%;
@@ -35,6 +36,31 @@ html {
         background-position-x: center;
         min-height: 80vh;
         padding-top: 8%;
+
+        .icon-button-container {
+          .button-inner-container {
+            display: inline-block;
+
+            &.push-right {
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+            }
+
+            &.disabled {
+              svg {
+                fill: $disabled-color;
+              }
+              .button-label {
+                color: $disabled-color;
+              }
+            }
+
+            &:not(.disabled) {
+              cursor: pointer;
+            }
+          }
+        }
 
         .panel-inner-container {
           max-width: 300px;
