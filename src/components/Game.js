@@ -102,16 +102,16 @@ export default class Game extends React.Component {
         <div className="game-container">
           <div className="container">
             <div className="row">
-              <div className="player-container col-md-3">
+              <div className="player-container col-md-2">
                 <Player />
               </div>
-              <div className="panel-container col-md-6">
+              <div className="panel-container col-md-8">
                 <Panel
                   boxes={current.boxes}
                   onClick={i => this.handleClick(i)}
                 />
               </div>
-              <div className="player-container col-md-3">
+              <div className="player-container col-md-2">
                 <Player />
               </div>
             </div>

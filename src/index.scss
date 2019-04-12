@@ -40,14 +40,15 @@ html {
           margin: 15% auto;
 
           .box-wrapper {
-            height: 100px;
-            width: 100px;
+            height: 10rem;
+            width: 10rem;
             margin: -2px;
             background: #fff;
             border: 1px solid #999;
             font-size: 24px;
             font-weight: bold;
             line-height: 34px;
+            outline: none;
           }
         }
       }
