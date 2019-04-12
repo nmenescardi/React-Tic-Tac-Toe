@@ -9,49 +9,61 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: [
+      // Array of movements. Each move has an inner array with the state of the boxes
+      moves: [
         {
           boxes: Array(9).fill(null)
         }
       ],
+
+      // Controls the next turn:
       xIsNext: true,
-      stepNumber: 0
+
+      // Number of moves. Used to navigate back and forward between moves
+      moveNum: 0
     };
   }
 
   handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    // Using slice() to create a copy of the array
+    // Get a copy of the movements in the position number selected (if navigating between them ) or in the las position (last move).
+    const moves = this.state.moves.slice(0, this.state.moveNum + 1);
+
+    // The last position is the desire to store the current move
+    const current = moves[moves.length - 1];
+
+    // Using slice() to create a copy of the boxes inner array
     const boxes = current.boxes.slice();
 
     if (this.calculateWinner(boxes) || boxes[i]) {
+      // If already was a winner or the box was already clicked -> do nothing
       return;
     }
 
+    // Switch between players markups
     boxes[i] = this.state.xIsNext ? 'X' : 'O';
 
     // Concat() doesn't mutate the original array (push() method does)
     this.setState({
-      history: history.concat([
+      moves: moves.concat([
         {
           boxes
         }
       ]),
       xIsNext: !this.state.xIsNext,
-      stepNumber: history.length
+      moveNum: moves.length
     });
   }
 
-  jumpTo(step) {
+  jumpTo(moveNumber) {
     this.setState({
-      stepNumber: step,
-      xIsNext: step % 2 === 0
+      moveNum: moveNumber,
+      xIsNext: moveNumber % 2 === 0
     });
   }
 
   calculateWinner(boxes) {
-    const lines = [
+    // Array with possible combination for winning the game
+    const winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
@@ -61,8 +73,10 @@ export default class Game extends React.Component {
       [0, 4, 8],
       [2, 4, 6]
     ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
+
+    // TODO: use a HO function
+    for (let i = 0; i < winningCombinations.length; i++) {
+      const [a, b, c] = winningCombinations[i];
       if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
         return boxes[a];
       }
@@ -71,11 +85,12 @@ export default class Game extends React.Component {
   }
 
   render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const moves = this.state.moves;
+    const current = moves[this.state.moveNum];
     const winner = this.calculateWinner(current.boxes);
 
-    const moves = history.map((step, move) => {
+    // TODO: Use navigation arrows instead
+    const movesButtons = moves.map((step, move) => {
       const desc = move ? 'Go to move #' + move : 'Go to game start';
       return (
         <li key={move}>
@@ -128,7 +143,7 @@ export default class Game extends React.Component {
             </div>
             <div className="game-info">
               <div>{status}</div>
-              <ol>{moves}</ol>
+              <ol>{movesButtons}</ol>
             </div>
           </div>
         </div>

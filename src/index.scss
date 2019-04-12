@@ -34,10 +34,11 @@ html {
         background-image: url('/assets/background-half-grey.jpg');
         background-position-x: center;
         min-height: 80vh;
+        padding-top: 8%;
 
         .panel-inner-container {
           max-width: 300px;
-          margin: 15% auto;
+          margin: 2px auto;
 
           .box-wrapper {
             height: 10rem;
