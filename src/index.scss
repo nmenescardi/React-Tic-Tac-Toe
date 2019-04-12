@@ -79,6 +79,12 @@ html {
           }
         }
       }
+
+      &.winner {
+        .player-active {
+          display: none !important;
+        }
+      }
     }
 
     /* More.*/

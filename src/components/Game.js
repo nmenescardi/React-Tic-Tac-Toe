@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import Panel from './Panel';
 import Player from './Player';
 import NewGame from './NewGame';
@@ -99,23 +100,31 @@ export default class Game extends React.Component {
     const totalAmountOfMovements = this.state.moves.length - 1;
     const visibleRedo = totalAmountOfMovements > currentMovement;
 
-    let status;
+    let status = {};
     const nextPlayer = this.state.xIsNext ? 'X' : 'O';
     if (winner) {
-      status = `Winner: ${winner}`;
+      status = {
+        intro: 'Winner: ',
+        player: winner
+      };
     } else {
-      status = `Next Player: ${nextPlayer}`;
+      status = {
+        intro: 'Next Turn: ',
+        player: nextPlayer
+      };
     }
 
     const xIsNext = this.state.xIsNext;
 
     return (
-      <div className="main-container">
+      <div className={classnames('main-container', { winner: winner })}>
         <div className="hero-container">
           <div className="container title-container">
             <h2 className="next-turn-indicator text-center">
-              Next Turn:
-              <span className="player-turn font-italic">{` Player ${nextPlayer}`}</span>
+              {status.intro}
+              <span className="player-turn font-italic">{` Player ${
+                status.player
+              }`}</span>
             </h2>
           </div>
         </div>
@@ -160,9 +169,6 @@ export default class Game extends React.Component {
             </div>
             <div className="reset-scores-container">
               <ResetScores />
-            </div>
-            <div className="game-info">
-              <div>{status}</div>
             </div>
           </div>
         </div>
