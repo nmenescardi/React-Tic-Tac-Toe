@@ -77,11 +77,14 @@ export default class Game extends React.Component {
       [2, 4, 6]
     ];
 
-    // TODO: use a HO function
-    for (let i = 0; i < winningCombinations.length; i++) {
-      const [a, b, c] = winningCombinations[i];
-      if (boxes[a] && boxes[a] === boxes[b] && boxes[a] === boxes[c]) {
-        return boxes[a];
+    for (let currentCombination of winningCombinations) {
+      const [pos1, pos2, pos3] = currentCombination;
+      if (
+        boxes[pos1] &&
+        boxes[pos1] === boxes[pos2] &&
+        boxes[pos2] === boxes[pos3]
+      ) {
+        return boxes[pos3];
       }
     }
     return null;
