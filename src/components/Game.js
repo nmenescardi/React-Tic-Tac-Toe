@@ -23,7 +23,11 @@ export default class Game extends React.Component {
       xIsNext: true,
 
       // Number of moves. Used to navigate back and forward between moves
-      moveNum: 0
+      moveNum: 0,
+
+      totalWinsPlayerX: 0,
+      totalWinsPlayerY: 0,
+      gameState: 'PLAYING'
     };
   }
 
@@ -37,10 +41,8 @@ export default class Game extends React.Component {
     // Using slice() to create a copy of the boxes inner array
     const boxes = current.boxes.slice();
 
-    if (this.calculateWinner(boxes) || boxes[i]) {
-      // If already was a winner or the box was already clicked -> do nothing
-      return;
-    }
+    const gameState = this.state.gameState;
+    if (boxes[i] || 'FINISHED' === gameState) return;
 
     // Switch between players markups
     boxes[i] = this.state.xIsNext ? 'X' : 'O';
@@ -55,6 +57,14 @@ export default class Game extends React.Component {
       xIsNext: !this.state.xIsNext,
       moveNum: moves.length
     });
+
+    const winnerCombination = this.calculateWinner(boxes);
+    if (winnerCombination) {
+      const winner = current.boxes[winnerCombination[0]];
+
+      // Update total scores
+      this.updateTotalScores(winner);
+    }
   }
 
   navigateMoves(offset) {
@@ -72,7 +82,8 @@ export default class Game extends React.Component {
         }
       ],
       xIsNext: true,
-      moveNum: 0
+      moveNum: 0,
+      gameState: 'PLAYING'
     });
   }
 
@@ -96,18 +107,37 @@ export default class Game extends React.Component {
         boxes[pos1] === boxes[pos2] &&
         boxes[pos2] === boxes[pos3]
       ) {
-        /* console.log(currentCombination);
-        return boxes[pos3]; */
         return currentCombination;
       }
     }
     return null;
   }
 
+  updateTotalScores(winner) {
+    if ('X' === winner) {
+      this.setState({
+        totalWinsPlayerX: ++this.state.totalWinsPlayerX,
+        totalWinsPlayerY: this.state.totalWinsPlayerY
+      });
+    } else {
+      this.setState({
+        totalWinsPlayerX: this.state.totalWinsPlayerX,
+        totalWinsPlayerY: ++this.state.totalWinsPlayerY
+      });
+    }
+    this.setState({
+      gameState: 'FINISHED'
+    });
+  }
+
   render() {
     const moves = this.state.moves;
     const current = moves[this.state.moveNum];
     const currentMovement = this.state.moveNum;
+
+    // Total Score for both players
+    const totalWinsPlayerX = this.state.totalWinsPlayerX;
+    const totalWinsPlayerY = this.state.totalWinsPlayerY;
 
     // grab the winning line if there is a winner
     const winnerCombination = this.calculateWinner(current.boxes);
@@ -187,7 +217,11 @@ export default class Game extends React.Component {
             </div>
             <div className="row">
               <div className="player-container col-md-2">
-                <Player playerRef="X" playerActive={xIsNext} totalScore="1" />
+                <Player
+                  playerRef="X"
+                  playerActive={xIsNext}
+                  totalScore={totalWinsPlayerX}
+                />
               </div>
               <div className="panel-container col-md-8">
                 <Panel
@@ -197,7 +231,11 @@ export default class Game extends React.Component {
                 />
               </div>
               <div className="player-container col-md-2">
-                <Player playerRef="O" playerActive={!xIsNext} totalScore="3" />
+                <Player
+                  playerRef="O"
+                  playerActive={!xIsNext}
+                  totalScore={totalWinsPlayerY}
+                />
               </div>
             </div>
             <div className="new-game-container">
