@@ -10,6 +10,11 @@ $boxes-font-size: 2.4rem;
 $game-background-img: '/assets/background-half-grey.jpg';
 $panel-width: 30rem;
 
+$shadow-element-highlighted: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff,
+  0 0 20px rgba(0, 61, 228, 0.9), 0 0 30px rgba(83, 129, 255, 0.9),
+  0 0 40px rgba(86, 221, 155, 0.9), 0 0 50px rgba(17, 48, 134, 0.9),
+  0 0 75px rgba(62, 66, 77, 0.9);
+
 /* Colors */
 $disabled-color: #d3d3d3;
 $font-white: #fff;
@@ -17,6 +22,21 @@ $font-gray: #aaa;
 
 $background-white: #fff;
 $background-gray: #999;
+
+$color-player-x: #0071de;
+$color-player-o: #bf2c23;
+$more-colors: #e2e900;
+$more-colors: #006583;
+$more-colors: #37aac0;
+$more-colors: #e0bd00;
+$more-colors: #d3d495;
+$more-colors: #233449;
+$more-colors: #8e2034;
+
+/*
+#006583
+
+*/
 
 /********************************************************/
 
@@ -95,6 +115,12 @@ html {
             font-weight: bold;
             line-height: $boxes-font-size;
             outline: none;
+
+            &.highlighted {
+              color: #0075dc;
+              text-shadow: $shadow-element-highlighted;
+              font-size: 3rem !important;
+            }
           }
         }
       }

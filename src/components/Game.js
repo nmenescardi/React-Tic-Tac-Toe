@@ -84,7 +84,9 @@ export default class Game extends React.Component {
         boxes[pos1] === boxes[pos2] &&
         boxes[pos2] === boxes[pos3]
       ) {
-        return boxes[pos3];
+        /* console.log(currentCombination);
+        return boxes[pos3]; */
+        return currentCombination;
       }
     }
     return null;
@@ -94,7 +96,9 @@ export default class Game extends React.Component {
     const moves = this.state.moves;
     const current = moves[this.state.moveNum];
     const currentMovement = this.state.moveNum;
-    const winner = this.calculateWinner(current.boxes);
+
+    // grab the winning line if there is a winner
+    const winnerCombination = this.calculateWinner(current.boxes);
 
     // Visible UNDO only if the current movement is not the first one.
     const visibleUndo = currentMovement !== 0;
@@ -106,7 +110,11 @@ export default class Game extends React.Component {
     let status = {};
     const nextPlayer = this.state.xIsNext ? 'X' : 'O';
 
-    if (winner) {
+    let winner;
+    if (winnerCombination) {
+      // Get the winner by using the first possition of the winning line
+      winner = current.boxes[winnerCombination[0]];
+
       // There is a winner
       status = {
         intro: 'Winner: ',
@@ -166,6 +174,7 @@ export default class Game extends React.Component {
                 <Panel
                   boxes={current.boxes}
                   onClick={i => this.handleClick(i)}
+                  winningLine={winnerCombination}
                 />
               </div>
               <div className="player-container col-md-2">
