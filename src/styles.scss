@@ -22,6 +22,7 @@ $color-player-x: #0071de;
 $color-player-o: #bf2c23;
 
 $custom-dark-blue: #3e94a4;
+$custom-dark-gray: #616161;
 $custom-dark-green: #006583;
 $custom-light-blue: #37aac0;
 $custom-dark-red: #8e2034;
@@ -46,7 +47,7 @@ html {
     font-family: $font-family;
 
     * {
-      transition: all 0.3s ease;
+      //transition: all 0.2s ease;
     }
 
     .main-container {
@@ -131,6 +132,15 @@ html {
 
             &:not(.disabled) {
               cursor: pointer;
+
+              &:hover {
+                svg {
+                  fill: $custom-dark-gray;
+                }
+                .button-label {
+                  color: $custom-dark-gray;
+                }
+              }
             }
           }
         }
