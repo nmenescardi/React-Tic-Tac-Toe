@@ -6,6 +6,7 @@ import NewGame from './NewGame';
 import ResetScores from './ResetScores';
 import ButtonWithIcon from './ButtonWithIcon';
 import icons from '../icons/icons';
+import gameStateConst from '../constants/gameStateConst';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Game extends React.Component {
@@ -27,7 +28,7 @@ export default class Game extends React.Component {
 
       totalWinsPlayerX: 0,
       totalWinsPlayerY: 0,
-      gameState: 'PLAYING'
+      gameState: gameStateConst.PLAYING
     };
   }
 
@@ -42,7 +43,7 @@ export default class Game extends React.Component {
     const boxes = current.boxes.slice();
 
     const gameState = this.state.gameState;
-    if (boxes[i] || 'FINISHED' === gameState) return;
+    if (boxes[i] || gameStateConst.WINNER === gameState) return;
 
     // Switch between players markups
     boxes[i] = this.state.xIsNext ? 'X' : 'O';
@@ -83,7 +84,7 @@ export default class Game extends React.Component {
       ],
       xIsNext: true,
       moveNum: 0,
-      gameState: 'PLAYING'
+      gameState: gameStateConst.PLAYING
     });
   }
 
@@ -135,7 +136,7 @@ export default class Game extends React.Component {
       });
     }
     this.setState({
-      gameState: 'FINISHED'
+      gameState: gameStateConst.WINNER
     });
   }
 
