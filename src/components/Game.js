@@ -57,10 +57,10 @@ export default class Game extends React.Component {
     });
   }
 
-  jumpTo(moveNumber) {
+  navigateMoves(offset) {
     this.setState({
-      moveNum: moveNumber,
-      xIsNext: moveNumber % 2 === 0
+      moveNum: this.state.moveNum + offset,
+      xIsNext: !this.state.xIsNext
     });
   }
 
@@ -144,7 +144,7 @@ export default class Game extends React.Component {
                   iconLabel="Undo"
                   iconSVG={icons.undo}
                   pushToRight={false}
-                  onClick={() => this.jumpTo(currentMovement - 1)}
+                  onClick={() => this.navigateMoves(-1)}
                   visibility={visibleUndo}
                 />
               </div>
@@ -153,7 +153,7 @@ export default class Game extends React.Component {
                   iconLabel="Redo"
                   iconSVG={icons.redo}
                   pushToRight={true}
-                  onClick={() => this.jumpTo(currentMovement + 1)}
+                  onClick={() => this.navigateMoves(+1)}
                   visibility={visibleRedo}
                 />
               </div>
