@@ -87,6 +87,15 @@ export default class Game extends React.Component {
     });
   }
 
+  resetScores() {
+    this.setState({
+      totalWinsPlayerX: 0,
+      totalWinsPlayerY: 0
+    });
+
+    this.newGame();
+  }
+
   calculateWinner(boxes) {
     // Array with possible combination for winning the game
     const winningCombinations = [
@@ -242,7 +251,7 @@ export default class Game extends React.Component {
               <NewGame onClick={() => this.newGame()} />
             </div>
             <div className="reset-scores-container">
-              <ResetScores />
+              <ResetScores onClick={() => this.resetScores()} />
             </div>
           </div>
         </div>
