@@ -30,11 +30,13 @@ $custom-light-yellow: #e2e900;
 $custom-dark-yellow: #e0bd00;
 $custom-cream: #d3d495;
 
-/* Shadow */
+/* Shadows */
 $shadow-element-highlighted: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff,
   0 0 20px $custom-dark-green, 0 0 30px $custom-dark-green,
   0 0 40px $custom-dark-green, 0 0 50px $custom-dark-green,
   0 0 75px $custom-dark-green;
+
+$shadow-hero-title: 5px 5px 5px #000;
 
 /********************************************************/
 
@@ -43,23 +45,39 @@ html {
   body {
     font-family: $font-family;
 
+    * {
+      transition: all 0.3s ease;
+    }
+
     .main-container {
-      &.player-X .hero-container,
-      &.winner-player-X .hero-container {
-        background-image: linear-gradient(
-            rgba($color-player-x, 0.05),
-            rgba($color-player-x, 0.5)
-          ),
-          url($hero-img-url);
+      &.player-X,
+      &.winner-player-X {
+        .hero-container {
+          background-image: linear-gradient(
+              rgba($color-player-x, 0.05),
+              rgba($color-player-x, 0.5)
+            ),
+            url($hero-img-url);
+        }
+
+        .player-turn {
+          color: lighten($color-player-x, 15%);
+        }
       }
 
-      &.player-O .hero-container,
-      &.winner-player-O .hero-container {
-        background-image: linear-gradient(
-            rgba($color-player-o, 0.05),
-            rgba($color-player-o, 0.5)
-          ),
-          url($hero-img-url);
+      &.player-O,
+      &.winner-player-O {
+        .hero-container {
+          background-image: linear-gradient(
+              rgba($color-player-o, 0.05),
+              rgba($color-player-o, 0.5)
+            ),
+            url($hero-img-url);
+
+          .player-turn {
+            color: lighten($color-player-o, 15%);
+          }
+        }
       }
 
       .hero-container {
@@ -77,9 +95,10 @@ html {
           h2 {
             font-size: $hero-title-font-size;
             color: $font-white;
+            text-shadow: $shadow-hero-title;
 
             .player-turn {
-              color: $font-gray;
+              // color: $font-gray;
             }
           }
         }

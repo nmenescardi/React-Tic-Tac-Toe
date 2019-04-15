@@ -64,6 +64,18 @@ export default class Game extends React.Component {
     });
   }
 
+  newGame() {
+    this.setState({
+      moves: [
+        {
+          boxes: Array(9).fill(null)
+        }
+      ],
+      xIsNext: true,
+      moveNum: 0
+    });
+  }
+
   calculateWinner(boxes) {
     // Array with possible combination for winning the game
     const winningCombinations = [
@@ -189,7 +201,7 @@ export default class Game extends React.Component {
               </div>
             </div>
             <div className="new-game-container">
-              <NewGame />
+              <NewGame onClick={() => this.newGame()} />
             </div>
             <div className="reset-scores-container">
               <ResetScores />
