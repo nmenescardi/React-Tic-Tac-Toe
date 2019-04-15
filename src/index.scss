@@ -26,9 +26,9 @@ $custom-dark-green: #006583;
 $custom-light-blue: #37aac0;
 $custom-dark-red: #8e2034;
 
-$more-colors: #e2e900;
-$more-colors: #e0bd00;
-$more-colors: #d3d495;
+$custom-light-yellow: #e2e900;
+$custom-dark-yellow: #e0bd00;
+$custom-cream: #d3d495;
 
 /* Shadow */
 
@@ -114,6 +114,14 @@ html {
             font-weight: bold;
             line-height: $boxes-font-size;
             outline: none;
+
+            &.player-X {
+              color: $color-player-x;
+            }
+
+            &.player-O {
+              color: $color-player-o;
+            }
 
             &.highlighted {
               color: $custom-dark-blue;
