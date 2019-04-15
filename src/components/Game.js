@@ -110,7 +110,7 @@ export default class Game extends React.Component {
     let status = {};
     const nextPlayer = this.state.xIsNext ? 'X' : 'O';
 
-    let winner;
+    let winner, playerTurnClass;
     if (winnerCombination) {
       // Get the winner by using the first possition of the winning line
       winner = current.boxes[winnerCombination[0]];
@@ -120,20 +120,27 @@ export default class Game extends React.Component {
         intro: 'Winner: ',
         player: winner
       };
-
-      // TODO: Highlight the winning line
     } else {
       // There is NOT a winner. Show which player moves next
       status = {
         intro: 'Next Turn: ',
         player: nextPlayer
       };
+
+      playerTurnClass = `player-${nextPlayer}`;
     }
 
     const xIsNext = this.state.xIsNext;
 
     return (
-      <div className={classnames('main-container', { winner: winner })}>
+      <div
+        className={classnames(
+          'main-container',
+          { winner: winner },
+          `winner-player-${winner}`,
+          playerTurnClass
+        )}
+      >
         <div className="hero-container">
           <div className="container title-container">
             <h2 className="next-turn-indicator text-center">

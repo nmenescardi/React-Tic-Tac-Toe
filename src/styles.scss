@@ -44,9 +44,26 @@ html {
     font-family: $font-family;
 
     .main-container {
+      &.player-X .hero-container,
+      &.winner-player-X .hero-container {
+        background-image: linear-gradient(
+            rgba($color-player-x, 0.05),
+            rgba($color-player-x, 0.5)
+          ),
+          url($hero-img-url);
+      }
+
+      &.player-O .hero-container,
+      &.winner-player-O .hero-container {
+        background-image: linear-gradient(
+            rgba($color-player-o, 0.05),
+            rgba($color-player-o, 0.5)
+          ),
+          url($hero-img-url);
+      }
+
       .hero-container {
         min-height: $hero-height;
-        background-image: url($hero-img-url);
         background-size: cover;
         background-repeat: no-repeat;
         background-position-x: center;
@@ -123,7 +140,7 @@ html {
             }
 
             &.highlighted {
-              color: $custom-dark-blue;
+              // color: $custom-dark-blue;
               text-shadow: $shadow-element-highlighted;
               font-size: 3rem !important;
             }
