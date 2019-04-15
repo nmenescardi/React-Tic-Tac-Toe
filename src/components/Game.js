@@ -105,12 +105,17 @@ export default class Game extends React.Component {
 
     let status = {};
     const nextPlayer = this.state.xIsNext ? 'X' : 'O';
+
     if (winner) {
+      // There is a winner
       status = {
         intro: 'Winner: ',
         player: winner
       };
+
+      // TODO: Highlight the winning line
     } else {
+      // There is NOT a winner. Show which player moves next
       status = {
         intro: 'Next Turn: ',
         player: nextPlayer
