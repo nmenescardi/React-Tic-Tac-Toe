@@ -125,13 +125,13 @@ export default class Game extends React.Component {
   updateTotalScores(winner) {
     if ('X' === winner) {
       this.setState({
-        totalWinsPlayerX: ++this.state.totalWinsPlayerX,
+        totalWinsPlayerX: this.state.totalWinsPlayerX + 1,
         totalWinsPlayerY: this.state.totalWinsPlayerY
       });
     } else {
       this.setState({
         totalWinsPlayerX: this.state.totalWinsPlayerX,
-        totalWinsPlayerY: ++this.state.totalWinsPlayerY
+        totalWinsPlayerY: this.state.totalWinsPlayerY + 1
       });
     }
     this.setState({
