@@ -6,7 +6,7 @@ import NewGame from './NewGame';
 import ResetScores from './ResetScores';
 import ButtonWithIcon from './ButtonWithIcon';
 import icons from '../icons/icons';
-import gameStateConst from '../constants/gameStateConst';
+import { gameStateConst } from '../constants/gameStateConst';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class Game extends React.Component {
