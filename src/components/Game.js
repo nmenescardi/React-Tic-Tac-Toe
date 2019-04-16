@@ -152,8 +152,12 @@ export default class Game extends React.Component {
     // grab the winning line if there is a winner
     const winnerCombination = this.calculateWinner(current.boxes);
 
-    // Visible UNDO only if the current movement is not the first one.
-    const visibleUndo = currentMovement !== 0;
+    // Game State
+    const gameState = this.state.gameState;
+
+    // Visible UNDO only if: the current movement is not the first one -AND- Game didn't finished.
+    const visibleUndo =
+      currentMovement !== 0 && gameStateConst.PLAYING === gameState;
 
     // Visible REDO only if there is more movements in further positions.
     const totalAmountOfMovements = this.state.moves.length - 1;
