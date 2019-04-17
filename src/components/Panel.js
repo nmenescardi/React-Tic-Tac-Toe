@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from './Box';
+import PropTypes from 'prop-types';
 
 export default class Panel extends React.Component {
   render() {
@@ -24,3 +25,9 @@ export default class Panel extends React.Component {
     );
   }
 }
+
+Panel.propTypes = {
+  winningLine: PropTypes.array,
+  boxes: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired
+};

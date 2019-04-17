@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 export default class Box extends React.Component {
   render() {
@@ -23,3 +24,13 @@ export default class Box extends React.Component {
     );
   }
 }
+
+Box.defaultProps = {
+  highlighted: false
+};
+
+Box.propTypes = {
+  value: PropTypes.string,
+  highlighted: PropTypes.bool,
+  onClick: PropTypes.func.isRequired
+};
