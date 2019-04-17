@@ -12,7 +12,7 @@ export default class Player extends React.Component {
     return (
       <div className="player-inner-container">
         <div className="title-wrapper">
-          <h3 className="player-title">
+          <h3 className="player-title display-4">
             {`Player ${playerRef} `}
             <span style={styleDisplayActive} className="player-active">
               {' '}
@@ -20,7 +20,7 @@ export default class Player extends React.Component {
             </span>
           </h3>
         </div>
-        <p className="total-score">
+        <p className="total-score lead">
           Total Score: <span className="score">{totalScore}</span>
         </p>
       </div>

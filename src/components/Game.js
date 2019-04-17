@@ -223,21 +223,21 @@ export default class Game extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="player-container col-md-2">
+              <div className="player-container col-md-3">
                 <Player
                   playerRef="X"
                   playerActive={xIsNext}
                   totalScore={totalWinsPlayerX}
                 />
               </div>
-              <div className="panel-container col-md-8">
+              <div className="panel-container col-md-6">
                 <Panel
                   boxes={current.boxes}
                   onClick={i => this.handleClick(i)}
                   winningLine={winnerCombination}
                 />
               </div>
-              <div className="player-container col-md-2">
+              <div className="player-container col-md-3">
                 <Player
                   playerRef="O"
                   playerActive={!xIsNext}

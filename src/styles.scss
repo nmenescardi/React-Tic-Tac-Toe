@@ -45,6 +45,7 @@ html {
   font-size: 62.5%;
   body {
     font-family: $font-family;
+    height: 100%;
 
     * {
       //transition: all 0.2s ease;
@@ -64,6 +65,10 @@ html {
         .player-turn {
           color: lighten($color-player-x, 15%);
         }
+
+        span.player-active {
+          color: $color-player-x;
+        }
       }
 
       &.player-O,
@@ -78,6 +83,10 @@ html {
           .player-turn {
             color: lighten($color-player-o, 15%);
           }
+        }
+
+        span.player-active {
+          color: $color-player-o;
         }
       }
 
@@ -106,9 +115,13 @@ html {
       }
 
       .game-container {
-        background-image: url($game-background-img);
-        background-position-x: center;
-        min-height: 80vh;
+        background-color: #fdfdfd;
+        @media all and (min-width: 768px) {
+          background-image: url($game-background-img);
+          background-position-x: center;
+        }
+        height: 100%;
+        min-height: calc(100vh - #{$hero-height});
         //padding-top: 5%;
 
         .navigation-container {
@@ -153,6 +166,29 @@ html {
           }
         }
 
+        .player-container {
+          @media all and (max-width: 767px) {
+            order: 1;
+            text-align: center;
+            margin-top: 4rem;
+          }
+
+          .player-inner-container {
+            .title-wrapper {
+              .player-title {
+                @media all and (min-width: 767px) and (max-width: 991px) {
+                  font-size: 2rem;
+                }
+                .player-active {
+                  font-size: 5rem;
+                  font-weight: bolder;
+                  line-height: 2rem;
+                }
+              }
+            }
+          }
+        }
+
         .panel-inner-container {
           max-width: $panel-width;
           margin: 2px auto;
@@ -181,6 +217,15 @@ html {
               text-shadow: $shadow-element-highlighted;
               font-size: 3rem !important;
             }
+          }
+        }
+
+        .button-fa-container {
+          button.btn {
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
+            font-size: 1.35rem;
+            min-width: 134px;
           }
         }
       }

@@ -7,10 +7,12 @@ export default class ButtonFAIcon extends React.Component {
     const { onClick, label, extraClasses, iconClass } = this.props;
 
     return (
-      <button onClick={onClick} className={classnames('btn', extraClasses)}>
-        {iconClass && <i className={classnames('fas', iconClass)} />}
-        <span className="button-label">{label}</span>
-      </button>
+      <div className="button-fa-container">
+        <button onClick={onClick} className={classnames('btn', extraClasses)}>
+          {iconClass && <i className={classnames('fas', iconClass)} />}
+          <span className="button-label">{label}</span>
+        </button>
+      </div>
     );
   }
 }
