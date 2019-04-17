@@ -90,6 +90,12 @@ html {
         }
       }
 
+      &.draw {
+        .hero-container {
+          background-color: $custom-dark-green;
+        }
+      }
+
       .hero-container {
         min-height: $hero-height;
         background-size: cover;
@@ -230,7 +236,8 @@ html {
         }
       }
 
-      &.winner {
+      &.winner,
+      &.draw {
         .player-active {
           display: none !important;
         }
