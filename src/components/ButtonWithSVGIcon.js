@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class ButtonWithSVGIcon extends React.Component {
   render() {
-    const { iconLabel, iconSVG, pushToRight, onClick, visibility } = this.props;
+    const { iconSVG, pushToRight, onClick, visibility } = this.props;
     return (
       <div
         className={classnames(

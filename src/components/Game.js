@@ -74,20 +74,14 @@ export default class Game extends React.Component {
     this.playerOMovesHandler();
   }
   playerOMovesHandler() {
-    const {
-      moves,
-      moveNum,
-      totalWinsPlayerX,
-      totalWinsPlayerY,
-      gameState,
-      xIsNext
-    } = this.state;
+    const { moves, moveNum, gameState, xIsNext } = this.state;
 
     let resultOfPermutation;
 
     if (!xIsNext && gameState === gameStateConst.PLAYING) {
+    
       this.setState({
-        xIsNext: !this.state.xIsNext
+        xIsNext: false
       });
       const boxes = moves[moveNum].boxes;
 
