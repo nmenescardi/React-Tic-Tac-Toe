@@ -198,7 +198,7 @@ export default class Game extends React.Component {
             </h2>
           </div>
         </div>
-        <div className="game-container">
+        <div className="game-container pt-5">
           <div className="container">
             <div className="row">
               <div className="navigation-container">
@@ -245,20 +245,20 @@ export default class Game extends React.Component {
                 />
               </div>
             </div>
-            <div className="new-game-container">
+            <div className="new-game-container text-center my-5">
               <ButtonFAIcon
                 onClick={() => this.newGame()}
                 extraClasses="btn-primary"
                 label="New Game"
-                iconClass="fa-plus mr-2"
+                iconClass="fa-plus mr-3"
               />
             </div>
-            <div className="reset-scores-container">
+            <div className="reset-scores-container text-center my-5">
               <ButtonFAIcon
                 onClick={() => this.resetScores()}
                 extraClasses="btn-danger"
                 label="Reset Scores"
-                iconClass="fa-power-off mr-2"
+                iconClass="fa-power-off mr-3"
               />
             </div>
           </div>

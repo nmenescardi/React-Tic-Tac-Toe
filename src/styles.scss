@@ -1,7 +1,7 @@
 /********************************************************/
 
 /* Vars */
-$hero-height: 20rem;
+$hero-height: 15rem;
 $font-family: 'Century Gothic', Futura, sans-serif;
 $hero-img-url: '/assets/tic-tac-toe-hero.jpg';
 $hero-title-font-size: 4rem;
@@ -109,7 +109,7 @@ html {
         background-image: url($game-background-img);
         background-position-x: center;
         min-height: 80vh;
-        padding-top: 5%;
+        //padding-top: 5%;
 
         .navigation-container {
           width: 30rem;
