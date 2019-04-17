@@ -138,32 +138,29 @@ export default class Game extends React.Component {
   }
 
   render() {
-    const moves = this.state.moves;
-    const current = moves[this.state.moveNum];
-    const currentMovement = this.state.moveNum;
-
-    // Total Score for both players
-    const totalWinsPlayerX = this.state.totalWinsPlayerX;
-    const totalWinsPlayerY = this.state.totalWinsPlayerY;
+    const {
+      moves,
+      moveNum,
+      totalWinsPlayerX,
+      totalWinsPlayerY,
+      gameState,
+      xIsNext
+    } = this.state;
+    const current = moves[moveNum];
 
     // grab the winning line if there is a winner
     const winnerCombination = this.calculateWinner(current.boxes);
 
-    // Game State
-    const gameState = this.state.gameState;
-
     // Visible UNDO only if: the current movement is not the first one -AND- Game didn't finished.
-    const visibleUndo =
-      currentMovement !== 0 && gameStateConst.PLAYING === gameState;
+    const visibleUndo = moveNum !== 0 && gameStateConst.PLAYING === gameState;
 
     // Visible REDO only if there is more movements in further positions.
-    const totalAmountOfMovements = this.state.moves.length - 1;
-    const visibleRedo = totalAmountOfMovements > currentMovement;
+    const totalAmountOfMovements = moves.length - 1;
+    const visibleRedo = totalAmountOfMovements > moveNum;
 
-    let status = {};
-    const nextPlayer = this.state.xIsNext ? 'X' : 'O';
+    const nextPlayer = xIsNext ? 'X' : 'O';
 
-    let winner, playerTurnClass;
+    let winner, playerTurnClass, status;
     if (winnerCombination) {
       // Get the winner by using the first possition of the winning line
       winner = current.boxes[winnerCombination[0]];
@@ -182,8 +179,6 @@ export default class Game extends React.Component {
 
       playerTurnClass = `player-${nextPlayer}`;
     }
-
-    const xIsNext = this.state.xIsNext;
 
     return (
       <div
