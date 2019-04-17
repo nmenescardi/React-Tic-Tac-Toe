@@ -3,7 +3,8 @@ import classnames from 'classnames';
 
 export default class Box extends React.Component {
   render() {
-    const playerClass = this.props.value ? `player-${this.props.value}` : '';
+    const { value, highlighted, onClick } = this.props;
+    const playerClass = value ? `player-${value}` : '';
     return (
       <button
         className={classnames(
@@ -12,12 +13,12 @@ export default class Box extends React.Component {
           'text-center',
           playerClass,
           {
-            highlighted: this.props.highlighted
+            highlighted: highlighted
           }
         )}
-        onClick={() => this.props.onClick()}
+        onClick={() => onClick()}
       >
-        {this.props.value}
+        {value}
       </button>
     );
   }
