@@ -7,6 +7,7 @@ import ButtonWithSVGIcon from './ButtonWithSVGIcon';
 import icons from '../icons/icons';
 import { gameStateConst } from '../constants/gameStateConst';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import _ from 'lodash';
 
 export default class Game extends React.Component {
   state = {
@@ -73,10 +74,51 @@ export default class Game extends React.Component {
     this.playerOMovesHandler();
   }
   playerOMovesHandler() {
-    if (!this.state.xIsNext) {
-      console.log('O turn');
-      this.handleClick(5);
+    const {
+      moves,
+      moveNum,
+      totalWinsPlayerX,
+      totalWinsPlayerY,
+      gameState,
+      xIsNext
+    } = this.state;
+
+    let resultOfPermutation;
+
+    if (!xIsNext && gameState === gameStateConst.PLAYING) {
+      const boxes = moves[moveNum].boxes;
+
+      // 1st - for each empty box, try out if 'player O' has a possible Winning move.
+      resultOfPermutation = this.performMovementByPermutation('O', boxes);
+      if (resultOfPermutation) return;
+
+      // 2nd - for each empty box, try out if 'player O' can avoid the other player to win.
+      resultOfPermutation = this.performMovementByPermutation('X', boxes);
+      if (resultOfPermutation) return;
+
+      // 3er - Just random
+      const emptyBoxesPos = boxes
+        .map((e, i) => (e === null ? i : null))
+        .filter(e => e !== null);
+      this.handleClick(_.sample(emptyBoxesPos));
     }
+  }
+
+  performMovementByPermutation(player, boxes) {
+    for (let i = 0; i < boxes.length; i++) {
+      let box = boxes[i];
+      if (!box) {
+        boxes[i] = player;
+        const possibleWinningMove = this.calculateWinner(boxes);
+        boxes[i] = null;
+        if (possibleWinningMove) {
+          this.handleClick(i);
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   navigateMoves(offset) {
