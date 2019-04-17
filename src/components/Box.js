@@ -17,7 +17,7 @@ export default class Box extends React.Component {
             highlighted: highlighted
           }
         )}
-        onClick={() => onClick()}
+        onClick={onClick}
       >
         {value}
       </button>
