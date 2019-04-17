@@ -44,7 +44,6 @@ export default class Game extends React.Component {
     // Switch between players markups
     boxes[i] = this.state.xIsNext ? 'X' : 'O';
 
-    // Concat() doesn't mutate the original array (push() method does)
     this.setState({
       moves: moves.concat([
         {
@@ -61,6 +60,12 @@ export default class Game extends React.Component {
 
       // Update total scores
       this.updateTotalScores(winner);
+    } else {
+      if (this.state.moveNum === 8) {
+        this.setState({
+          gameState: gameStateConst.DRAW
+        });
+      }
     }
   }
 
@@ -159,7 +164,7 @@ export default class Game extends React.Component {
 
     const nextPlayer = xIsNext ? 'X' : 'O';
 
-    let winner, playerTurnClass, status;
+    let winner, playerTurnClass, status, draw;
     if (winnerCombination) {
       // Get the winner by using the first possition of the winning line
       winner = current.boxes[winnerCombination[0]];
@@ -170,19 +175,31 @@ export default class Game extends React.Component {
         player: winner
       };
     } else {
-      // There is NOT a winner. Show which player moves next
-      status = {
-        intro: 'Next Turn: ',
-        player: nextPlayer
-      };
+      // There is NOT a winner.
 
-      playerTurnClass = `player-${nextPlayer}`;
+      // Draw game ?
+      if (gameStateConst.DRAW === gameState) {
+        draw = true;
+        status = {
+          intro: 'Game Draw',
+          player: ''
+        };
+      } else {
+        // Show which player moves next
+        status = {
+          intro: 'Next Turn: ',
+          player: nextPlayer
+        };
+
+        playerTurnClass = `player-${nextPlayer}`;
+      }
     }
 
     return (
       <div
         className={classnames(
           'main-container',
+          { draw: draw },
           { winner: winner },
           `winner-player-${winner}`,
           playerTurnClass
@@ -192,9 +209,9 @@ export default class Game extends React.Component {
           <div className="container title-container">
             <h2 className="next-turn-indicator text-center">
               {status.intro}
-              <span className="player-turn font-italic">{` Player ${
-                status.player
-              }`}</span>
+              <span className="player-turn font-italic">
+                {status.player && ` Player ${status.player}`}
+              </span>
             </h2>
           </div>
         </div>
