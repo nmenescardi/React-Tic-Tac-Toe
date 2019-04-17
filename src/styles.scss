@@ -109,36 +109,44 @@ html {
         background-image: url($game-background-img);
         background-position-x: center;
         min-height: 80vh;
-        padding-top: 8%;
+        padding-top: 5%;
 
-        .icon-button-container {
-          .button-inner-container {
-            display: inline-block;
+        .navigation-container {
+          width: 30rem;
+          display: flex;
+          margin: 0 auto;
+          justify-content: space-between;
+          padding-bottom: 2rem;
 
-            &.push-right {
-              display: flex;
-              justify-content: flex-end;
-              align-items: center;
-            }
+          .icon-button-container {
+            .button-inner-container {
+              display: inline-block;
 
-            &.disabled {
-              svg {
-                fill: $disabled-color;
+              &.push-right {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
               }
-              .button-label {
-                color: $disabled-color;
-              }
-            }
 
-            &:not(.disabled) {
-              cursor: pointer;
-
-              &:hover {
+              &.disabled {
                 svg {
-                  fill: $custom-dark-gray;
+                  fill: $disabled-color;
                 }
                 .button-label {
-                  color: $custom-dark-gray;
+                  color: $disabled-color;
+                }
+              }
+
+              &:not(.disabled) {
+                cursor: pointer;
+
+                &:hover {
+                  svg {
+                    fill: $custom-dark-gray;
+                  }
+                  .button-label {
+                    color: $custom-dark-gray;
+                  }
                 }
               }
             }

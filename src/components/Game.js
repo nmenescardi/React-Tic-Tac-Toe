@@ -10,27 +10,24 @@ import { gameStateConst } from '../constants/gameStateConst';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Game extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // Array of movements. Each move has an inner array with the state of the boxes
-      moves: [
-        {
-          boxes: Array(9).fill(null)
-        }
-      ],
+  state = {
+    // Array of movements. Each move has an inner array with the state of the boxes
+    moves: [
+      {
+        boxes: Array(9).fill(null)
+      }
+    ],
 
-      // Controls the next turn:
-      xIsNext: true,
+    // Controls the next turn:
+    xIsNext: true,
 
-      // Number of moves. Used to navigate back and forward between moves
-      moveNum: 0,
+    // Number of moves. Used to navigate back and forward between moves
+    moveNum: 0,
 
-      totalWinsPlayerX: 0,
-      totalWinsPlayerY: 0,
-      gameState: gameStateConst.PLAYING
-    };
-  }
+    totalWinsPlayerX: 0,
+    totalWinsPlayerY: 0,
+    gameState: gameStateConst.PLAYING
+  };
 
   handleClick(i) {
     // Get a copy of the movements in the position number selected (if navigating between them ) or in the las position (last move).
@@ -210,23 +207,25 @@ export default class Game extends React.Component {
         <div className="game-container">
           <div className="container">
             <div className="row">
-              <div className="icon-button-container col-md-2 offset-md-4">
-                <ButtonWithIcon
-                  iconLabel="Undo"
-                  iconSVG={icons.undo}
-                  pushToRight={false}
-                  onClick={() => this.navigateMoves(-1)}
-                  visibility={visibleUndo}
-                />
-              </div>
-              <div className="icon-button-container col-md-2">
-                <ButtonWithIcon
-                  iconLabel="Redo"
-                  iconSVG={icons.redo}
-                  pushToRight={true}
-                  onClick={() => this.navigateMoves(+1)}
-                  visibility={visibleRedo}
-                />
+              <div className="navigation-container">
+                <div className="icon-button-container">
+                  <ButtonWithIcon
+                    iconLabel="Undo"
+                    iconSVG={icons.undo}
+                    pushToRight={false}
+                    onClick={() => this.navigateMoves(-1)}
+                    visibility={visibleUndo}
+                  />
+                </div>
+                <div className="icon-button-container">
+                  <ButtonWithIcon
+                    iconLabel="Redo"
+                    iconSVG={icons.redo}
+                    pushToRight={true}
+                    onClick={() => this.navigateMoves(+1)}
+                    visibility={visibleRedo}
+                  />
+                </div>
               </div>
             </div>
             <div className="row">
