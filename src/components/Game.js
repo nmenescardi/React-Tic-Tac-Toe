@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import Panel from './Panel';
 import Player from './Player';
 import ButtonFAIcon from './ButtonFAIcon';
-import ButtonWithIcon from './ButtonWithIcon';
+import ButtonWithSVGIcon from './ButtonWithSVGIcon';
 import icons from '../icons/icons';
 import { gameStateConst } from '../constants/gameStateConst';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -203,7 +203,7 @@ export default class Game extends React.Component {
             <div className="row">
               <div className="navigation-container">
                 <div className="icon-button-container">
-                  <ButtonWithIcon
+                  <ButtonWithSVGIcon
                     iconLabel="Undo"
                     iconSVG={icons.undo}
                     pushToRight={false}
@@ -212,7 +212,7 @@ export default class Game extends React.Component {
                   />
                 </div>
                 <div className="icon-button-container">
-                  <ButtonWithIcon
+                  <ButtonWithSVGIcon
                     iconLabel="Redo"
                     iconSVG={icons.redo}
                     pushToRight={true}
