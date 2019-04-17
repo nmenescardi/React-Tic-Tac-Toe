@@ -2,8 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import Panel from './Panel';
 import Player from './Player';
-import NewGame from './NewGame';
-import ResetScores from './ResetScores';
+import DefaultButton from './DefaultButton';
 import ButtonWithIcon from './ButtonWithIcon';
 import icons from '../icons/icons';
 import { gameStateConst } from '../constants/gameStateConst';
@@ -247,10 +246,18 @@ export default class Game extends React.Component {
               </div>
             </div>
             <div className="new-game-container">
-              <NewGame onClick={() => this.newGame()} />
+              <DefaultButton
+                onClick={() => this.newGame()}
+                extraClasses="btn-primary"
+                label="New Game"
+              />
             </div>
             <div className="reset-scores-container">
-              <ResetScores onClick={() => this.resetScores()} />
+              <DefaultButton
+                onClick={() => this.resetScores()}
+                extraClasses="btn-danger"
+                label="Reset Scores"
+              />
             </div>
           </div>
         </div>
