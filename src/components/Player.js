@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Player extends React.Component {
   render() {
@@ -26,3 +27,13 @@ export default class Player extends React.Component {
     );
   }
 }
+
+Player.defultProps = {
+  totalScore: 0
+};
+
+Player.propTypes = {
+  playerRef: PropTypes.string.isRequired,
+  playerActive: PropTypes.bool,
+  totalScore: PropTypes.number
+};

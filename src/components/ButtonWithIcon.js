@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 export default class ButtonWithIcon extends React.Component {
   render() {
@@ -21,3 +22,15 @@ export default class ButtonWithIcon extends React.Component {
     );
   }
 }
+
+ButtonWithIcon.defaultProps = {
+  pushToRight: false,
+  visibility: false
+};
+
+ButtonWithIcon.propTypes = {
+  iconLabel: PropTypes.string.isRequired,
+  pushToRight: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  visibility: PropTypes.bool
+};
