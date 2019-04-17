@@ -86,6 +86,9 @@ export default class Game extends React.Component {
     let resultOfPermutation;
 
     if (!xIsNext && gameState === gameStateConst.PLAYING) {
+      this.setState({
+        xIsNext: !this.state.xIsNext
+      });
       const boxes = moves[moveNum].boxes;
 
       // 1st - for each empty box, try out if 'player O' has a possible Winning move.
