@@ -3,10 +3,9 @@ import classnames from 'classnames';
 import Panel from './Panel';
 import Player from './Player';
 import ButtonFAIcon from './ButtonFAIcon';
-import ButtonWithSVGIcon from './ButtonWithSVGIcon';
-import icons from '../icons/icons';
 import { gameStateConst } from '../constants/gameStateConst';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import _ from 'lodash';
 
 export default class Game extends React.Component {
   state = {
@@ -69,11 +68,59 @@ export default class Game extends React.Component {
     }
   }
 
-  navigateMoves(offset) {
-    this.setState({
-      moveNum: this.state.moveNum + offset,
-      xIsNext: !this.state.xIsNext
-    });
+  componentDidUpdate() {
+    this.playerOMovesHandler();
+  }
+  playerOMovesHandler() {
+    const { moves, moveNum, gameState, xIsNext } = this.state;
+
+    let resultOfPermutation;
+
+    if (!xIsNext && gameState === gameStateConst.PLAYING) {
+      this.setState({
+        xIsNext: false
+      });
+      const boxes = moves[moveNum].boxes;
+
+      // 1st - for each empty box, try out if 'player O' has a possible Winning move.
+      resultOfPermutation = this.performMovementByPermutation('O', boxes);
+      if (resultOfPermutation) return;
+
+      // 2nd - for each empty box, try out if 'player O' can avoid the other player to win.
+      resultOfPermutation = this.performMovementByPermutation('X', boxes);
+      if (resultOfPermutation) return;
+
+      // 3er - Just random
+      const emptyBoxesPos = boxes
+        .map((e, i) => (e === null ? i : null))
+        .filter(e => e !== null);
+      this.handleClick(_.sample(emptyBoxesPos));
+    }
+  }
+
+  wait(ms) {
+    var start = new Date().getTime();
+    var end = start;
+    while (end < start + ms) {
+      end = new Date().getTime();
+    }
+  }
+
+  performMovementByPermutation(player, boxes) {
+    for (let i = 0; i < boxes.length; i++) {
+      let box = boxes[i];
+      if (!box) {
+        boxes[i] = player;
+        const possibleWinningMove = this.calculateWinner(boxes);
+        boxes[i] = null;
+        if (possibleWinningMove) {
+          this.handleClick(i);
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   newGame() {
@@ -155,13 +202,6 @@ export default class Game extends React.Component {
     // grab the winning line if there is a winner
     const winnerCombination = this.calculateWinner(current.boxes);
 
-    // Visible UNDO only if: the current movement is not the first one -AND- Game didn't finished.
-    const visibleUndo = moveNum !== 0 && gameStateConst.PLAYING === gameState;
-
-    // Visible REDO only if there is more movements in further positions.
-    const totalAmountOfMovements = moves.length - 1;
-    const visibleRedo = totalAmountOfMovements > moveNum;
-
     const nextPlayer = xIsNext ? 'X' : 'O';
 
     let winner, playerTurnClass, status, draw;
@@ -217,28 +257,6 @@ export default class Game extends React.Component {
         </div>
         <div className="game-container pt-5">
           <div className="container">
-            <div className="row">
-              <div className="navigation-container">
-                <div className="icon-button-container">
-                  <ButtonWithSVGIcon
-                    iconLabel="Undo"
-                    iconSVG={icons.undo}
-                    pushToRight={false}
-                    onClick={() => this.navigateMoves(-1)}
-                    visibility={visibleUndo}
-                  />
-                </div>
-                <div className="icon-button-container">
-                  <ButtonWithSVGIcon
-                    iconLabel="Redo"
-                    iconSVG={icons.redo}
-                    pushToRight={true}
-                    onClick={() => this.navigateMoves(+1)}
-                    visibility={visibleRedo}
-                  />
-                </div>
-              </div>
-            </div>
             <div className="row">
               <div className="player-container col-md-3">
                 <Player
