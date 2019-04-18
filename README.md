@@ -1,3 +1,5 @@
+This project is hosted in [Github Pages](https://nmenescardi.github.io/React-Tic-Tac-Toe/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
